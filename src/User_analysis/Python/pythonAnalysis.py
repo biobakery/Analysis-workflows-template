@@ -1,8 +1,29 @@
+#+ echo=False
 # import pandas and matplotlib 
 import pandas as pd 
 import matplotlib.pyplot as plt 
+import time
+from anadama2 import PweaveDocument
+document = PweaveDocument()
 
-print ("Preparing the pdf")  
+vars = document.get_vars()
+#' Date: <%= time.strftime("%m/%d/%Y") %>
+
+#' # Study Title
+#' <% print(vars["introduction_text"]) %>
+
+
+#' # Description
+#' This report template. Please follow the following code pattern while doing an analysis. 
+#'
+#'
+#'
+#'
+#' -----
+#+ echo=False
+#' **Feel free to remove the template code below here and start working on the analysis.** 
+print ("Displaying the sample figures")  
+#+ echo=False
 # create 2D array of table given above 
 data = [['E001', 'M', 34, 123, 'Normal', 350], 
         ['E002', 'F', 40, 114, 'Overweight', 450], 
@@ -23,6 +44,6 @@ df = pd.DataFrame(data, columns = ['EMPID', 'Gender',
   
 # create histogram for numeric data 
 df.hist() 
-  
+
 # show plot 
 plt.show()
