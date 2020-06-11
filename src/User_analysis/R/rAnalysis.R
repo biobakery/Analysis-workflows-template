@@ -1,5 +1,4 @@
 library(ggplot2)
-theme_set(theme_classic())
 
 # Histogram on a Continuous (Numeric) Variable
 g <- ggplot(mpg, aes(displ)) + scale_fill_brewer(palette = "Spectral")

@@ -1,10 +1,8 @@
 from anadama2 import Workflow
 import subprocess
 
-def r_to_python():
+def execute_r(path2script):
     command = "Rscript"
-    path2script = "src/User_analysis/R/rAnalysis.R"
-
     # Variable number of args in a list
     args = []
     # Build subprocess command
@@ -15,10 +13,15 @@ def r_to_python():
 
 
 workflow = Workflow(remove_options=["input"])
-r_to_python()
+
+# Uncomment for R analysis
+# execute_r("src/User_analysis/R/rAnalysis.R")
+
+
+# Generate the pdf report from private analysis 
 doc_task = workflow.add_document(
-    templates="src/User_analysis/Python/pythonAnalysis.py",
-    targets="/Users/sam1389/Desktop/pythonAnalysis.pdf",
+    templates="src/User_analysis/Python/pythonAnalysis.R",
+    targets="output/pythonAnalysis.pdf",
     vars={"title": "<Put Study Title of the Analysis Here>",
           "project": "Demo Project",
           "introduction_text": "Introduction Text PlaceHolder"})

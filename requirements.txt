@@ -2,5 +2,3 @@ anadama2
 pandas
 matplotlib
 pweave==0.25
-latex
-pdflatex

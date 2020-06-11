@@ -20,7 +20,9 @@ vars = document.get_vars()
 #'
 #'
 #' -----
-#+ echo=False
+#+ 
+#'
+#'
 #' **Feel free to remove the template code below here and start working on the analysis.** 
 print ("Displaying the sample figures")  
 #+ echo=False

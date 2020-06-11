@@ -32,3 +32,16 @@ Alternatively,
         git clone https://github.com/biobakery/<Name of your repository>
     ```
     or using the "**Clone or Download**" button. 
+- Install all the requirements for the workflow.
+    ```
+    pip install -r requirements.txt
+    ```
+- Install pdflatex for PDF report generation of the Python/R analysis. 
+    ``` 
+    brew cask install basictex - for pdf generation
+    ```
+### Running the workflow
+Use the `-o` flag to set the path of the output files. 
+``` 
+python3 run.py -o output/    
+```
