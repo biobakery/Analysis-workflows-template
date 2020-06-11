@@ -38,7 +38,7 @@ Alternatively,
     ```
 - Install pdflatex for PDF report generation of the Python/R analysis. 
     ``` 
-    brew cask install basictex - for pdf generation
+    brew cask install basictex 
     ```
 ### Running the workflow
 Use the `-o` flag to set the path of the output files. 
