@@ -17,12 +17,11 @@ workflow.add_task("python input/demo_python/src/plot.py --input "+args.input+" -
 workflow.add_task("Rscript input/demo_r/src/analysis_example.r -d "+args.sample_metadata+" -o "+args.output+"/r_output_table.tsv")
 
 # Generate the pdf report from private analysis 
-# document_file = workflow.name_output_files("report.pdf")
-# document_vars = {"title":"Teddy Analysis Report",
-#         "project":"Teddy Analysis",
-#         "introduction_text":"This is a demo report.",
-#         "file_model_output":model_output
-#       }
+document_file = workflow.name_output_files("report.pdf")
+document_vars = {"title":"Demo Analysis Report",
+        "project":"Demo Analysis",
+        "introduction_text":"This is a demo report."
+      }
 
 # workflow.add_document(
 #     templates=["template.py"],
