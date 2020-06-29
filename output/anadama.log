@@ -1,0 +1,61 @@
+2020-06-29 04:50:54,336	LoggerReporter	started	INFO: Beginning AnADAMA run with 3 tasks.
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: Workflow description = Analysis Template
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: Workflow version = 0.0.1
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: Workflow configuration options
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: sample_metadata = input/demo_r/input/metadata.tsv
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: exclude_task = None
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: jobs = 1
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: dry_run = False
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: grid_environment = None
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: exclude_target = None
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: log_level = INFO
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: lines = 10
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: grid_scratch = None
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: until_task = None
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: quit_early = False
+2020-06-29 04:50:54,337	LoggerReporter	started	INFO: grid_benchmark = off
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: grid_options = None
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: grid = None
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: grid_partition = 
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: output = output/
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: input = input/demo_python/input/data.tsv
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: skip_nothing = False
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: config = None
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: grid_jobs = 0
+2020-06-29 04:50:54,338	LoggerReporter	started	INFO: target = None
+2020-06-29 04:50:54,343	LoggerReporter	log_event	INFO: task 2, Rscript : ready and waiting for resources 
+2020-06-29 04:50:54,344	LoggerReporter	log_event	INFO: task 2, Rscript : starting to run 
+2020-06-29 04:50:54,344	LoggerReporter	task_command	INFO: Executing with shell:  Rscript input/demo_r/src/analysis_example.r -d input/demo_r/input/metadata.tsv -o output//r_output_table.tsv
+2020-06-29 04:50:56,384	anadama2.helpers	actually_sh	INFO: Execution complete. Stdout: 
+Stderr: Loading required package: docopt
+── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+✔ ggplot2 3.3.0     ✔ purrr   0.3.3
+✔ tibble  3.0.1     ✔ dplyr   0.8.5
+✔ tidyr   1.0.2     ✔ stringr 1.4.0
+✔ readr   1.3.1     ✔ forcats 0.5.0
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+
+Attaching package: ‘reshape2’
+
+The following object is masked from ‘package:tidyr’:
+
+    smiths
+
+Using sample_id as id variables
+
+2020-06-29 04:50:56,385	LoggerReporter	log_event	INFO: task 2, Rscript : completed successfully 
+2020-06-29 04:50:56,385	LoggerReporter	log_event	INFO: task 1, python : ready and waiting for resources 
+2020-06-29 04:50:56,385	LoggerReporter	log_event	INFO: task 1, python : starting to run 
+2020-06-29 04:50:56,385	LoggerReporter	task_command	INFO: Executing with shell:  python input/demo_python/src/plot.py --input input/demo_python/input/data.tsv --output output/
+2020-06-29 04:50:57,578	anadama2.helpers	actually_sh	INFO: Execution complete. Stdout: 
+Stderr: 
+2020-06-29 04:50:57,578	LoggerReporter	log_event	INFO: task 1, python : completed successfully 
+2020-06-29 04:50:57,578	LoggerReporter	log_event	INFO: task 0, python : ready and waiting for resources 
+2020-06-29 04:50:57,578	LoggerReporter	log_event	INFO: task 0, python : starting to run 
+2020-06-29 04:50:57,578	LoggerReporter	task_command	INFO: Executing with shell:  python input/demo_python/src/trim.py --input input/demo_python/input/data.tsv --output output//output_table.tsv --lines 10
+2020-06-29 04:50:58,063	anadama2.helpers	actually_sh	INFO: Execution complete. Stdout: 
+Stderr: 
+2020-06-29 04:50:58,063	LoggerReporter	log_event	INFO: task 0, python : completed successfully 
+2020-06-29 04:50:58,064	LoggerReporter	finished	INFO: AnADAMA run finished.
