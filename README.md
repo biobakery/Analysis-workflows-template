@@ -68,3 +68,4 @@ Command: `python run.py --input input/demo_python/input/data.tsv --sample-metada
 #### To do: 
 - PDF report document Generation: 
 - Automated installation of Python and R dependencies with run.py
+- Take all the env path variables to config.ini
