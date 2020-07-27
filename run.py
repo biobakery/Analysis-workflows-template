@@ -14,31 +14,23 @@ workflow.add_task(
     targets=[args.output+"example/output_table.tsv"],
     args=[args.lines])
 
-# sample python plots module task1 -- input/src/plot.py
-# workflow.add_task(
-#     "[depends[0]] --input [depends[1]] --output [targets[0]] --lines [args[0]]", 
-#     depends=[TrackedExecutable("plot.py"),args.input],
-#     targets=[args.output+"example"])
-
-
 # sample R module task2 
-# workflow.add_task(
-#     "[depends[0]] --input [depends[1]] --output [targets[0]] --lines [args[0]]", 
-#     depends=[TrackedExecutable("plot.py"),args.input],
-#     targets=[args.output+"example"])
-# workflow.add_task("Rscript input/demo_r/src/analysis_example.r -d "+args.sample_metadata+" -o "+args.output+"/r_output_table.tsv")
+workflow.add_task(
+    "[depends[0]] --input [depends[1]] -o [targets[0]] -d [args[0]]", 
+    depends=[TrackedExecutable("plot.py"),args.input],
+    targets=[args.output+"example/r_output_table.tsv"])
 
 # Generate the pdf report from private analysis 
-# document_file = workflow.name_output_files("report.pdf")
-# document_vars = {"title":"Demo Analysis Report",
-#         "project":"Demo Analysis",
-#         "introduction_text":"This is a demo report."
-#       }
+document_file = workflow.name_output_files("report.pdf")
+document_vars = {"title":"Demo Analysis Report",
+        "project":"Demo Analysis",
+        "introduction_text":"This is a demo report."
+      }
 
-# workflow.add_document(
-#     templates=["template.py"],
-#     targets=document_file,
-#     vars=document_vars)
+workflow.add_document(
+    templates=["template.py"],
+    targets=document_file,
+    vars=document_vars)
 
 workflow.go()
 

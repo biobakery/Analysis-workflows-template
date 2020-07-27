@@ -1,7 +1,0 @@
-anadama2
-pandas
-argparse
-matplotlib
-pweave==0.25
-
-
