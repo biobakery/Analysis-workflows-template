@@ -1,44 +1,49 @@
 from anadama2 import Workflow
 from anadama2.tracked import TrackedExecutable
+import configparser
+import os
+
+#Loading the config setting
+config = configparser.ConfigParser()
+config.read('etc/config.ini')
 
 workflow = Workflow(version="0.0.1", description="Analysis Template")
+workflow = Workflow(remove_options=["input","output"])
 # Setting the custom arguments for run.py
 workflow.add_argument(name="lines", desc="Number of lines to trim [default: 10]", default=10)
-workflow.add_argument(name="sample-metadata", desc="Sample metadata for R analysis [default: input/metadata.tsv]", default="input/metadata.tsv")
 args = workflow.parse_args()
 
-# sample python analysis module task0 - input/src/trim.py
+# Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    "python src/trim.py --input input/data.tsv --output [targets[0]] --lines [args[0]]", 
-    depends=[args.input],
-    targets=args.output+"output_table.tsv",
+    config['task0']['cmd']+" --input "+config['task0']['input']+" --output [targets[0]] --lines [args[0]]",
+    depends=[TrackedExecutable(config['task0']['cmd'])],
+    targets=config['task0']['output'],
     args=[args.lines])
 
-# sample python visualization module task0 - input/src/trim.py
+# Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    "python src/plot.py --input example/output/output_table.tsv --output [targets[0]]", 
-    depends=[args.input],
-    targets=args.output,
-    args=[args.lines])
+    config['task1']['cmd']+" --input " +config['task1']['input']+" --output [targets[0]]", 
+    depends=[TrackedExecutable(config['task1']['cmd'])],
+    targets=config['task1']['output'])
 
-# sample R module task2 
+# # Task2 sample R module  - src/analysis_example.r
 workflow.add_task(
-    "Rscript src/analysis_example.r -d "+args.sample_metadata+" -o [targets[0]]", 
-    depends=[args.input],
-    targets=[args.output+"/r_output_table.tsv"])
+    config['task2']['cmd']+" -d "+config['task2']['input']+" -o [targets[0]]", 
+    depends=[TrackedExecutable(config['task2']['cmd'])],
+    targets=config['task2']['output'])
 
-# Generate the pdf report from private analysis 
-document_file = workflow.name_output_files("report.pdf")
+# Setting the values for the pdf reports
+document_file = os.path.dirname(os.path.abspath(__file__))+config['report']['name']
 document_vars = {"title":"Demo Analysis Report",
         "project":"Demo Analysis",
         "introduction_text":"This is a demo report.",
-        "output":"example/output/output_table.tsv"
+        "output":config['task0']['output']
       }
-
+# Add the document to the workflow
 workflow.add_document(
-    templates=["src/template.py"],
+    templates=[config['report']['template']],
     targets=document_file,
     vars=document_vars)
 
+# Run the workflow
 workflow.go()
-

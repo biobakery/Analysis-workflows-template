@@ -8,8 +8,7 @@ import argparse
 
 def plot_tsv(input, output_dir):
     data= pd.read_csv(input, sep='\t')
-    df = pd.DataFrame(data, columns = ['sample', 
-                                        'Archaea|Euryarchaeota|Methanobacteria|Methanobacteriales|Methanobacteriaceae|Methanobrevibacter'])
+    df = pd.DataFrame(data, columns = ['sample'])
     # create histogram for numeric data 
     df.hist() 
     plt.savefig(output_dir+'/barplots.png')

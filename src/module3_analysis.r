@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 require(docopt)
 'Usage:
    demo_models.R [-d <sample metadata> -o <output>]
