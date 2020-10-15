@@ -1,49 +1,52 @@
 from anadama2 import Workflow
 from anadama2.tracked import TrackedExecutable
-import configparser
-import os
+
+# Setting the version of the workflow and short description
+workflow = Workflow(
+    version="0.0.1",                    #Update the version as needed
+    description="Analysis Template"     #Update the description as needed
+    ) 
+
+# Setting the custom arguments for run.py
+workflow.add_argument(
+    name="lines", 
+    desc="Number of lines to trim [default: 10]", 
+    default=10)
+
+# Parsing the workflow arguments
+args = workflow.parse_args()
 
 #Loading the config setting
-config = configparser.ConfigParser()
-config.read('etc/config.ini')
-
-workflow = Workflow(version="0.0.1", description="Analysis Template")
-workflow = Workflow(remove_options=["input","output"])
-# Setting the custom arguments for run.py
-workflow.add_argument(name="lines", desc="Number of lines to trim [default: 10]", default=10)
-args = workflow.parse_args()
+args.config = 'etc/config.ini'
 
 # Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    config['task0']['cmd']+" --input "+config['task0']['input']+" --output [targets[0]] --lines [args[0]]",
-    depends=[TrackedExecutable(config['task0']['cmd'])],
-    targets=config['task0']['output'],
+    args.config['task0']['cmd']+" --input "+args.input+" --output [targets[0]] --lines [args[0]]",
+    depends=[TrackedExecutable(args.output)],
+    targets=args.output,
     args=[args.lines])
 
 # Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    config['task1']['cmd']+" --input " +config['task1']['input']+" --output [targets[0]]", 
-    depends=[TrackedExecutable(config['task1']['cmd'])],
-    targets=config['task1']['output'])
+    args.config['task1']['cmd']+" --input " +args.input+" --output [targets[0]]", 
+    depends=[TrackedExecutable(args.output)],
+    targets=args.output)
 
-# # Task2 sample R module  - src/analysis_example.r
+# Task2 sample R module  - src/analysis_example.r
 workflow.add_task(
-    config['task2']['cmd']+" -d "+config['task2']['input']+" -o [targets[0]]", 
-    depends=[TrackedExecutable(config['task2']['cmd'])],
-    targets=config['task2']['output'])
+    args.config['task2']['cmd']+" -d "+args.config['task2']['metadata']+" -o [targets[0]]", 
+    depends=[TrackedExecutable(args.output)],
+    targets=args.output)
 
-# Setting the values for the pdf reports
-document_file = os.path.dirname(os.path.abspath(__file__))+config['report']['name']
-document_vars = {"title":"Demo Analysis Report",
-        "project":"Demo Analysis",
-        "introduction_text":"This is a demo report.",
-        "output":config['task0']['output']
-      }
 # Add the document to the workflow
 workflow.add_document(
-    templates=[config['report']['template']],
-    targets=document_file,
-    vars=document_vars)
+    templates=[args.config['report']['template']],
+    targets=args.config['report']['document_file'],
+    vars={
+        title: args.config['report']['title'],
+        project: args.config['report']['project'],
+        introduction_text: args.config['report']['introduction_text']
+    })
 
 # Run the workflow
 workflow.go()

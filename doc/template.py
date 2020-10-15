@@ -47,11 +47,11 @@ column_names,row_names,data=document.read_table(vars["output"])
 #'
 #'
 #' ### Displaying images from visualization modules-example
-#' ![boxplots](../example/output/viz/boxplots.png)
+#' ![boxplots](../output/viz/boxplots.png)
 #' The above boxplots is an example visualization output from plots.py
 #' displayed as the markdown image in the Pweave pdf report. 
 #'
-#' ![boxplots](../example/output/viz/barplots.png)
+#' ![boxplots](../output/viz/barplots.png)
 #' The above bar plots is an example visualization output from plots.py
 #' displayed as the markdown image in the Pweave pdf report.  
 

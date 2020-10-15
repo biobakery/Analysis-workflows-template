@@ -11,11 +11,14 @@ Options:
 
 opts <- docopt(doc)
 
+library(logging)
 library(tidyverse)
 library(reshape2)
 
-# microbiome data
+# R logging example 
+loginfo("Performing analysis data", logger="")
 
+# microbiome data
 microbiome_melt <- read.csv(opts$d, sep="\t", header=T) %>%
 	mutate(sample_id = factor(sample_id)) %>%
 	melt() %>%
