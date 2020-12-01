@@ -21,21 +21,26 @@ args.config = 'etc/config.ini'
 
 # Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    "trim.py --input [args.input] --output [args.output] --lines [args[0]]",
+    "trim --input [args.input] --output [args.output] --lines [args[0]]",
     depends=[TrackedExecutable("trim")],
     targets=args.output,
     args=[args.lines])
 
 # Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    "plot.py --input [args.input] --output [args.output]", 
+    "plot --input [args.input] --output [args.output]", 
     depends=[TrackedExecutable("plot")],
     targets=args.output)
 
 # Task2 sample R module  - src/analysis_example.r
 workflow.add_task(
-    "analysis.R -d [args.config['task2']['metadata']] -o [args.output]", 
-    depends=[TrackedExecutable(args.output)],
+    "analysis -d [args.config['task2']['metadata']] -o [args.output]", 
+    depends=[TrackedExecutable("analysis")],
+    targets=args.output)
+
+# Task3 add_task_group  - AnADAMA2 example to execute a task on multiple input files/dependencies
+workflow.add_task_group('cp [args.input] [args.output]',
+    depends=[TrackedExecutable("cp")],
     targets=args.output)
 
 # Add the document to the workflow
