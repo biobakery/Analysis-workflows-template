@@ -26,5 +26,5 @@ usage: run.py [-h] [--version] [--lines LINES] -o OUTPUT [-i INPUT]
 ## Step 2: Running the workflow 
 The input and the output arguments are required for the workflow. 
 ```
-python run.py -i input/data.tsv -o output
+python run.py -i input/data.tsv -o output 
 ```

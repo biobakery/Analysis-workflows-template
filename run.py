@@ -21,20 +21,20 @@ args.config = 'etc/config.ini'
 
 # Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    args.config['task0']['cmd']+" --input "+args.input+" --output [targets[0]] --lines [args[0]]",
-    depends=[TrackedExecutable(args.output)],
+    "trim --input [args.input] --output [args.output] --lines [args[0]]",
+    depends=[TrackedExecutable("trim")],
     targets=args.output,
     args=[args.lines])
 
 # Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    args.config['task1']['cmd']+" --input " +args.input+" --output [targets[0]]", 
-    depends=[TrackedExecutable(args.output)],
+    "plot --input [args.input] --output [args.output]", 
+    depends=[TrackedExecutable("plot")],
     targets=args.output)
 
 # Task2 sample R module  - src/analysis_example.r
 workflow.add_task(
-    args.config['task2']['cmd']+" -d "+args.config['task2']['metadata']+" -o [targets[0]]", 
+    "analysis -d [args.config['task2']['metadata']] -o [args.output]", 
     depends=[TrackedExecutable(args.output)],
     targets=args.output)
 
