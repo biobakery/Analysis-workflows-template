@@ -25,5 +25,5 @@ microbiome_melt <- read.csv(opts$d, sep="\t", header=T) %>%
 	dplyr::filter(value > 0)
 
 eps <- min(microbiome_melt$value)
-
-write.table(eps, opts$o, sep="\t", quote=F, row.names=F)
+filename <- paste(opts$o, "data/r_output.tsv", sep="/")
+write.table(eps, filename, sep="\t", quote=F, row.names=F)

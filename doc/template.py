@@ -38,20 +38,16 @@ vars = document.get_vars()
 #' only_data_columns (bool) – Remove the header and row names
 #' format_data (function) – A function to use to format the data
 #' ```
-
 #' ##### Example Output:  
 #+ echo=False
-column_names,row_names,data=document.read_table(vars["output"])
-#'
-#' <% print("\nTotal columns: "+str(len(column_names)) + " Total rows: "+str(len(row_names))) %>
 #'
 #'
 #' ### Displaying images from visualization modules-example
-#' ![boxplots](../output/viz/boxplots.png)
+#' ![boxplots](../viz/boxplots.png)
 #' The above boxplots is an example visualization output from plots.py
 #' displayed as the markdown image in the Pweave pdf report. 
 #'
-#' ![boxplots](../output/viz/barplots.png)
+#' ![boxplots](../viz/barplots.png)
 #' The above bar plots is an example visualization output from plots.py
 #' displayed as the markdown image in the Pweave pdf report.  
 

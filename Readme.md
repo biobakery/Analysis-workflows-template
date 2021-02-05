@@ -88,7 +88,7 @@ Step 3: Add the source code folder to your path:
 
 ##### Demo Run:
 ```
-python run.py -i input/data.tsv -o output
+python run.py --input input/data.tsv --output output --lines 10 --metadata input/metadata.tsv 
 ```
 ```python run.py --help```
 

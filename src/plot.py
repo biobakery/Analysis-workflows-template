@@ -12,14 +12,15 @@ def plot_tsv(input, output_dir):
     df = pd.DataFrame(data, columns = ['sample'])
     # create histogram for numeric data 
     df.hist() 
-    plt.savefig(output_dir)
+    filename=output_dir.split('/')
+    plt.savefig(output_dir+"/viz/"+filename[-1])
     
     np.random.seed(1234)
     df_box = pd.DataFrame(np.random.randn(50, 2))
     df_box['g'] = np.random.choice(['A', 'B'], size=50)
     df_box.loc[df_box['g'] == 'B', 1] += 3
-    bp = df_box.boxplot(by='g')
-    plt.savefig(output_dir)
+    # bp = df_box.boxplot(by='g')
+    plt.savefig(output_dir+"/viz/"+filename[-1])
     
     logging.info('Plots generated') #Logging example
     
