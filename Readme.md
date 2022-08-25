@@ -114,3 +114,6 @@ The `etc/config.ini` directory contains the default configuration setting for th
 #### Document Report Generation:
 
 The `docs/template.py` is a sample Pweave example template (Markdown + Python) for the PDF report generation of the existing tasks/Python/R modules.
+
+## Gcloud VM build + Workshop Tutorial
+https://github.com/biobakery/biobakery/wiki/biobakery_advanced#5-build-biobakery-google-cloud
