@@ -5,9 +5,9 @@
 import pandas as pd 
 import matplotlib.pyplot as plt 
 import time
+import os
 from anadama2 import PweaveDocument
 document = PweaveDocument()
-
 vars = document.get_vars()
 
 #' Date: <%= time.strftime("%d, %b %Y") %>  
@@ -31,7 +31,7 @@ vars = document.get_vars()
 #' Read the table from a text file with the first line 
 #' the column names and the first column the row names.
 #'
-#' Parameters:	
+#' Parameters:  
 #' file (str) – The file to read
 #' invert (bool) – Invert the table rows/columns after reading
 #' delimiter (str) – The delimiter present in the file
@@ -39,15 +39,12 @@ vars = document.get_vars()
 #' format_data (function) – A function to use to format the data
 #' ```
 #' ##### Example Output:  
-#+ echo=False
-#'
 #'
 #' ### Displaying images from visualization modules-example
-#' ![boxplots](../viz/boxplots.png)
+#' ![boxplots]($HOME/output/output.png)
 #' The above boxplots is an example visualization output from plots.py
 #' displayed as the markdown image in the Pweave pdf report. 
 #'
-#' ![boxplots](../viz/barplots.png)
 #' The above bar plots is an example visualization output from plots.py
 #' displayed as the markdown image in the Pweave pdf report.  
 

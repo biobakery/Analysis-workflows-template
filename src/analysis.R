@@ -20,10 +20,10 @@ loginfo("Performing analysis data", logger="")
 
 # microbiome data
 microbiome_melt <- read.csv(opts$d, sep="\t", header=T) %>%
-	mutate(sample_id = factor(sample_id)) %>%
-	melt() %>%
-	dplyr::filter(value > 0)
+        mutate(sample_id = factor(sample_id)) %>%
+        melt() %>%
+        dplyr::filter(value > 0)
 
 eps <- min(microbiome_melt$value)
-filename <- paste(opts$o, "data/r_output.tsv", sep="/")
+filename <- paste(opts$o, "/r_output.tsv", sep="/")
 write.table(eps, filename, sep="\t", quote=F, row.names=F)
