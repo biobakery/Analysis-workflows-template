@@ -41,7 +41,6 @@ vars = document.get_vars()
 #' ##### Example Output:  
 #'
 #' ### Displaying images from visualization modules-example
-#' ![boxplots]($HOME/output/output.png)
 #' The above boxplots is an example visualization output from plots.py
 #' displayed as the markdown image in the Pweave pdf report. 
 #'

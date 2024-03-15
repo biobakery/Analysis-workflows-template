@@ -28,8 +28,8 @@ args.config = 'etc/config.ini'
 working_dir = os.getcwd()
 
 # AnADAMA2 example workflow.do
-workflow.do("ls /usr/bin/ | sort > [t:output/global_exe.txt]")        #Command 
-workflow.do("ls $HOME/.local/bin/ | sort > [t:output/local_exe.txt]") #Command 
+workflow.do("ls /usr/bin/ | sort > [t:"+args.output+"/global_exe.txt]")        #Command 
+workflow.do("ls $HOME/.local/bin/ | sort > [t:"+args.output+"/local_exe.txt]") #Command 
 
 
 # Task0 sample python analysis module  - src/trim.py
