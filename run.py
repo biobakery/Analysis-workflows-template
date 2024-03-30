@@ -3,6 +3,8 @@ from glob import glob
 from anadama2 import Workflow
 from anadama2.tracked import TrackedExecutable
 
+working_dir = os.getcwd()
+
 # Setting the version of the workflow and short description
 workflow = Workflow(
     version="0.0.1",                    #Update the version as needed
@@ -20,12 +22,17 @@ workflow.add_argument(
     desc="Metadata for performing analysis [default: input/metadata.tsv]", 
     default="input/metadata.tsv")
 
+workflow.add_argument(    
+    name="scripts",     
+    desc="Location of utility scripts [default: src/]",   
+    default=os.path.join(working_dir,"src"))
+
 # Parsing the workflow arguments
 args = workflow.parse_args()
 
 #Loading the config setting
 args.config = 'etc/config.ini'
-working_dir = os.getcwd()
+
 
 # AnADAMA2 example workflow.do
 workflow.do("ls /usr/bin/ | sort > [t:"+args.output+"/global_exe.txt]")        #Command 
@@ -34,23 +41,23 @@ workflow.do("ls $HOME/.local/bin/ | sort > [t:"+args.output+"/local_exe.txt]") #
 
 # Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    "trim.py --lines [args[0]] --output [targets[0]] --input "+working_dir+"/"+args.input, #Command 
-    depends=[TrackedExecutable("trim.py")],                                #Tracking executable dependencies
+    args.scripts+"/trim.py --lines [args[0]] --output [targets[0]] --input "+working_dir+"/"+args.input, #Command 
+    depends=[TrackedExecutable(args.scripts+"/trim.py")],                      #Tracking executable dependencies
     targets=args.output,                                                       #Output target directory
     args=[args.lines])                                                         #Additional arguments 
 
 
 # Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    "plot.py --output [targets[0]] --input "+working_dir+"/"+args.input,    #Command 
-    depends=[TrackedExecutable("plot.py")],                 #Tracking executable dependencies
-    targets=args.output)                                        #Output target directory
+    args.scripts+"/plot.py --output [targets[0]] --input "+working_dir+"/"+args.input,    #Command 
+    depends=[TrackedExecutable(args.scripts+"/plot.py")],                                 #Tracking executable dependencies
+    targets=args.output)                                                                  #Output target directory
 
 
 # Task2 sample R module  - src/analysis_example.r
 workflow.add_task(
-    "analysis.R -o [targets[0]] -d "+working_dir+"/"+args.metadata,     #Command 
-    depends=[TrackedExecutable("analysis.R")],          #Tracking executable dependencies
+    args.scripts+"/analysis.R -o [targets[0]] -d "+working_dir+"/"+args.metadata,     #Command 
+    depends=[TrackedExecutable(args.scripts+"/analysis.R")],          #Tracking executable dependencies
     targets=args.output,                                    #Output target directory
     args=[args.metadata])                                   #Additional arguments 
 

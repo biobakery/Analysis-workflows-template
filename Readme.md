@@ -72,18 +72,9 @@ or using the "**Clone or Download**" button.
 
 ##### Converting Python and R analysis source code to the executables:
 ```
-Step 1: Add the following line at the top of the file.
+Add the following line at the top of the file.
 Python: `#!/usr/local/bin/python3`
 R: `#!/usr/bin/env Rscript`
-
-Setp 2: Change the permission of the file to make it executable
-`chmod +x [filename]`
-
-Step 3: Add the source code folder to your path: 
-- Find your path: `echo $HOME`
-- In `~/.bash_profile` or `~/.bashrc` or `~/.zshrc`  at the bottom of your file: 
-`export WORKFLOW_UTILS="$HOME/analysis-workflow-template/src/"`
-`export PATH="$WORKFLOW_UTILS:$PATH"`
 ```
 
 ##### Demo Run:
