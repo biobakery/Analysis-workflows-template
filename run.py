@@ -3,7 +3,8 @@ from glob import glob
 from anadama2 import Workflow
 from anadama2.tracked import TrackedExecutable
 
-working_dir = os.getcwd()
+# In repect to run.py script
+working_dir = os.path.dirname(os.path.realpath(__file__))
 
 # Setting the version of the workflow and short description
 workflow = Workflow(
