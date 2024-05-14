@@ -23,10 +23,6 @@ workflow.add_argument(
     desc="Metadata for performing analysis [default: input/metadata.tsv]", 
     default="input/metadata.tsv")
 
-workflow.add_argument(    
-    name="scripts",     
-    desc="Location of utility scripts [default: src/]",   
-    default=os.path.join(working_dir,"src"))
 
 # Parsing the workflow arguments
 args = workflow.parse_args()
