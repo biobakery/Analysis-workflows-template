@@ -2,6 +2,7 @@ import os
 from glob import glob
 from anadama2 import Workflow
 from anadama2.tracked import TrackedExecutable
+from anadama2.tracked import TrackedDirectory
 
 # Setting the version of the workflow and short description
 workflow = Workflow(
@@ -32,20 +33,21 @@ args.config = 'etc/config.ini'
 workflow.do("ls /usr/bin/ | sort > [t:"+args.output+"/global_exe.txt]")        #Command 
 workflow.do("ls $HOME/.local/bin/ | sort > [t:"+args.output+"/local_exe.txt]") #Command 
 
-
+input_files = workflow.get_input_files(extension=".tsv")
 # Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    "trim.py --lines [args[0]] --output [targets[0]] --input [depends[0]]",    #Command 
-    depends=[args.input, TrackedExecutable("trim.py")],                        #Tracking executable dependencies
-    targets=args.output,                                                       #Output target directory
-    args=[args.lines])                                                         #Additional arguments 
+    "trim.py --lines [args[0]] --output [targets[0]] --input "+input_files[1],    #Command 
+    depends=[TrackedDirectory(args.input), TrackedExecutable("trim.py")],         #Tracking executable dependencies
+    targets=args.output,                                                          #Output target directory
+    args=[args.lines])                                                            #Additional arguments 
+
 
 
 # Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    "plot.py --output [targets[0]] --input [depends[0]]",                       #Command 
-    depends=[args.input, TrackedExecutable("plot.py")],                                    #Tracking executable dependencies
-    targets=args.output)                                                       #Output target directory
+    "plot.py --output [targets[0]] --input "+input_files[1],                        #Command 
+    depends=[TrackedDirectory(args.input), TrackedExecutable("plot.py")],           #Tracking executable dependencies
+    targets=args.output)                                                            #Output target directory
 
 
 # Task2 sample R module  - src/analysis_example.r
@@ -84,8 +86,8 @@ workflow.add_task(
 pdf_report=os.path.join(os.getcwd(),args.output,"pdfReport.pdf")
 workflow.add_document(
     templates="doc/template.py",
-    depends=[args.input],
-    targets=pdf_report,
+    depends= [args.output+"/data.tsv.notabs"],
+    targets=pdf_report, 
     vars={
         "introduction_text": "Demo Title"
     })

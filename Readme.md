@@ -80,7 +80,7 @@ or using the "**Clone or Download**" button.
 ##### Usage:
 ##### Demo Run:
 ```
-python run.py --input input/data.tsv --output output --lines 10 --metadata input/metadata.tsv 
+python run.py --input input/ --output output --lines 10 --metadata input/metadata.tsv 
 ```
 ```python run.py --help```
 
