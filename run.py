@@ -35,16 +35,16 @@ workflow.do("ls $HOME/.local/bin/ | sort > [t:"+args.output+"/local_exe.txt]") #
 
 # Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    "trim.py --lines [args[0]] --output [targets[0]] --input "+args.input,     #Command 
-    depends=[TrackedExecutable("trim.py")],                                    #Tracking executable dependencies
+    "trim.py --lines [args[0]] --output [targets[0]] --input [depends[0]]",    #Command 
+    depends=[args.input, TrackedExecutable("trim.py")],                        #Tracking executable dependencies
     targets=args.output,                                                       #Output target directory
     args=[args.lines])                                                         #Additional arguments 
 
 
 # Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    "plot.py --output [targets[0]] --input "+args.input,                       #Command 
-    depends=[TrackedExecutable("plot.py")],                                    #Tracking executable dependencies
+    "plot.py --output [targets[0]] --input [depends[0]]",                       #Command 
+    depends=[args.input, TrackedExecutable("plot.py")],                                    #Tracking executable dependencies
     targets=args.output)                                                       #Output target directory
 
 
