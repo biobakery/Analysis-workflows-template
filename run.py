@@ -3,9 +3,6 @@ from glob import glob
 from anadama2 import Workflow
 from anadama2.tracked import TrackedExecutable
 
-# In repect to run.py script
-working_dir = os.path.dirname(os.path.realpath(__file__))
-
 # Setting the version of the workflow and short description
 workflow = Workflow(
     version="0.0.1",                    #Update the version as needed
@@ -38,25 +35,25 @@ workflow.do("ls $HOME/.local/bin/ | sort > [t:"+args.output+"/local_exe.txt]") #
 
 # Task0 sample python analysis module  - src/trim.py
 workflow.add_task(
-    args.scripts+"/trim.py --lines [args[0]] --output [targets[0]] --input "+working_dir+"/"+args.input, #Command 
-    depends=[TrackedExecutable(args.scripts+"/trim.py")],                      #Tracking executable dependencies
+    "trim.py --lines [args[0]] --output [targets[0]] --input "+args.input,     #Command 
+    depends=[TrackedExecutable("trim.py")],                                    #Tracking executable dependencies
     targets=args.output,                                                       #Output target directory
     args=[args.lines])                                                         #Additional arguments 
 
 
 # Task1 sample python visualization module - src/plot.py
 workflow.add_task(
-    args.scripts+"/plot.py --output [targets[0]] --input "+working_dir+"/"+args.input,    #Command 
-    depends=[TrackedExecutable(args.scripts+"/plot.py")],                                 #Tracking executable dependencies
-    targets=args.output)                                                                  #Output target directory
+    "plot.py --output [targets[0]] --input "+args.input,                       #Command 
+    depends=[TrackedExecutable("plot.py")],                                    #Tracking executable dependencies
+    targets=args.output)                                                       #Output target directory
 
 
 # Task2 sample R module  - src/analysis_example.r
 workflow.add_task(
-    args.scripts+"/analysis.R -o [targets[0]] -d "+working_dir+"/"+args.metadata,     #Command 
-    depends=[TrackedExecutable(args.scripts+"/analysis.R")],          #Tracking executable dependencies
-    targets=args.output,                                    #Output target directory
-    args=[args.metadata])                                   #Additional arguments 
+    "analysis.R -o [targets[0]] -d "+args.metadata,                            #Command 
+    depends=[TrackedExecutable("analysis.R")],                                 #Tracking executable dependencies
+    targets=args.output,                                                       #Output target directory
+    args=[args.metadata])                                                      #Additional arguments 
 
 
 # Task3 add_task_group  - AnADAMA2 example to execute a task on multiple input files/dependencies
@@ -64,7 +61,7 @@ multiple_input_files = glob(os.path.join(args.output, '*.txt')) #Initializing mu
 output_files = [os.path.join(args.output,os.path.basename(files+"_backup")) for files in multiple_input_files]
 workflow.add_task_group(
     "cp [depends[0]] [targets[0]]",                            #Command 
-    depends=[multiple_input_files],   #Tracking executable dependencies
+    depends=[multiple_input_files],                            #Tracking executable dependencies
     targets=output_files)                                      #Output target directory
 
 
@@ -79,7 +76,7 @@ def remove_end_tabs_function(task):
 workflow.add_task(
     remove_end_tabs_function,                       #Calling the python function  
     depends=args.input,                             #Tracking executable dependencies
-    targets=args.output+"/data.tsv.notabs",    #Target output
+    targets=args.output+"/data.tsv.notabs",         #Target output
     name="remove_end_tabs")
 
 
@@ -92,5 +89,6 @@ workflow.add_document(
     vars={
         "introduction_text": "Demo Title"
     })
+
 # Run the workflow
 workflow.go()
