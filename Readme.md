@@ -19,7 +19,7 @@
 
 - The `etc/config.ini` directory contains the default config setting for the template demo run. Feel free to change the settings based on the workflow use case.
 
-- The src directory is the main source directory for all the `python/R analysis` executables for the workflow.
+- The /src directory is the main source directory for all the `python/R analysis` executables for the workflow.
 
 
 
@@ -30,8 +30,17 @@
 Follow this installation guide [HERE](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to install Git in your local machine. Additionally, direct to Github [sign up](https://github.com/join?source=header-home) page if you do not have the account.
 
 - ##### Python(version>2.7 or >3.0)
+- anadama2
+- pandas
+- logging
+- numpy
+- matplotlib
 
 - ##### R version 3.6.3
+- docopt
+- tidyverse
+- reshape2
+- logging
 
 #### Installation
 
@@ -69,14 +78,6 @@ git clone https://github.com/biobakery/<Name of your repository>
 or using the "**Clone or Download**" button.
 
 ##### Usage:
-
-##### Converting Python and R analysis source code to the executables:
-```
-Add the following line at the top of the file.
-Python: `#!/usr/local/bin/python3`
-R: `#!/usr/bin/env Rscript`
-```
-
 ##### Demo Run:
 ```
 python run.py --input input/data.tsv --output output --lines 10 --metadata input/metadata.tsv 
